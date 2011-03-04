@@ -1,23 +1,36 @@
-dependencies = {
-  stripConsole : 'all',
-  action : 'clean,release',
-  optimize : 'shrinksafe',
-  releaseName : 'app',
-  localeList : 'en-us',
+({
+  appDir: '../src/',
 
-  layers: [
+  baseUrl: 'js',
+
+  dir: '../dist/',
+
+  optimize: 'none',
+
+  pragmas: {
+    asynchLoader: true
+  },
+
+  locale: 'en-us',
+
+  packages: [
     {
-      name: "../app/base.js",
-      resourceName : "myApp.base",
-      dependencies: [
-        "app.base"
-      ]
+      name: 'dojo',
+      location: 'dojo-release-1.6.0-src/dojo',
+      main: 'lib/main-browser',
+      lib: '.'
+    },
+    {
+      name: 'dijit',
+      location: 'dojo-release-1.6.0-src/dijit',
+      main: 'lib/main',
+      lib: '.'
     }
   ],
 
-  prefixes: [
-    [ "dijit", "../dijit" ],
-    [ "dojox", "../dojox" ],
-    [ "app", "../../app" ]
+  modules: [
+    {
+      name: 'app/_base'
+    }
   ]
-};
+})
