@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -21,13 +21,17 @@ LOADERMID="app/run"
 LOADERCONF="$SRCDIR/$LOADERMID.js"
 
 # Main application package build configuration
+<<<<<<< HEAD
 PROFILE="$SRCDIR/app/cocoach.profile.js"
+=======
+PROFILE="$BASEDIR/profiles/app.profile.js"
+>>>>>>> f35c4793270eb19dbc2798ced26f532182f60443
 
 # Configuration over. Main application start up!
 
 if [ ! -d "$TOOLSDIR" ]; then
-    echo "Can't find Dojo build tools -- did you initialise submodules? (git submodule update --init --recursive)"
-    exit 1
+	echo "Can't find Dojo build tools -- did you initialise submodules? (git submodule update --init --recursive)"
+	exit 1
 fi
 
 echo "Building application with $PROFILE to $DISTDIR."
@@ -39,12 +43,12 @@ echo " Done"
 cd "$TOOLSDIR"
 
 if which node >/dev/null; then
-    node ../../dojo/dojo.js load=build --require "$LOADERCONF" --profile "$PROFILE" --releaseDir "$DISTDIR" "$@"
+	node ../../dojo/dojo.js load=build --require "$LOADERCONF" --profile "$PROFILE" --releaseDir "$DISTDIR" $@
 elif which java >/dev/null; then
-    java -Xms256m -Xmx256m  -cp ../shrinksafe/js.jar:../closureCompiler/compiler.jar:../shrinksafe/shrinksafe.jar org.mozilla.javascript.tools.shell.Main  ../../dojo/dojo.js baseUrl=../../dojo load=build --require "$LOADERCONF" --profile "$PROFILE" --releaseDir "$DISTDIR" "$@"
+	java -Xms256m -Xmx256m  -cp ../shrinksafe/js.jar:../closureCompiler/compiler.jar:../shrinksafe/shrinksafe.jar org.mozilla.javascript.tools.shell.Main  ../../dojo/dojo.js baseUrl=../../dojo load=build --require "$LOADERCONF" --profile "$PROFILE" --releaseDir "$DISTDIR" $@
 else
-    echo "Need node.js or Java to build!"
-    exit 1
+	echo "Need node.js or Java to build!"
+	exit 1
 fi
 
 cd "$BASEDIR"
