@@ -12,7 +12,7 @@ SRCDIR="$BASEDIR/src"
 TOOLSDIR="$SRCDIR/util/buildscripts"
 
 # Destination directory for built code
-DISTDIR="$BASEDIR/dist"
+DISTDIR="$BASEDIR/../cocoach_dojo/dist"
 
 # Module ID of the main application package loader configuration
 LOADERMID="app/run"
@@ -21,7 +21,7 @@ LOADERMID="app/run"
 LOADERCONF="$SRCDIR/$LOADERMID.js"
 
 # Main application package build configuration
-PROFILE="$SRCDIR/app/app.profile.js"
+PROFILE="$SRCDIR/app/cocoach.profile.js"
 
 # Configuration over. Main application start up!
 
