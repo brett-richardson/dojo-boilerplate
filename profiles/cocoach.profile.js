@@ -12,7 +12,7 @@ var profile = {
 	// basePath is relative to the directory containing this profile file; in this case, it is being set to the
 	// src/ directory, which is the same place as the baseUrl directory in the loader configuration. (If you change
 	// this, you will also need to update run.js).
-	basePath:   '..',
+	basePath:   '../src/',
 	releaseDir: '../cocoach_dojo/dist', // Relative to the base path
 
 	// This is the directory within the release directory where built packages will be placed. The release directory
@@ -51,6 +51,31 @@ var profile = {
 	// defer loading large sections of code until they are actually required while still allowing multiple modules to
 	// be compiled into a single file.
 	layers: {
+		// This is the main loader module. It is a little special because it is treated like an AMD module even though
+		// it is actually just plain JavaScript. There is some extra magic in the build system specifically for this
+		// module ID.
+		'dojo/dojo': {
+			// In addition to the loader `dojo/dojo` and the loader configuration file `app/run`, we are also including
+			// the main application `app/main` and the `dojo/i18n` and `dojo/domReady` modules because, while they are
+			// all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
+			// tiny files.
+			include: [
+				// 'dojo/i18n',
+				'dojo/main',
+				'dojo/domReady',
+				'dojo/require',
+				'dojo/provide',
+				'dojo/_base/declare',
+				'dojo/_base/connect',
+				'dojo/_base/declare'
+			],
+
+			// By default, the build system will try to include `dojo/main` in the built `dojo/dojo` layer, which adds
+			// a bunch of stuff we do not want or need. We want the initial script load to be as small and quick to
+			// load as possible, so we configure it as a custom, bootable base.
+			boot: true,
+			customBase: true
+		},
 		// This is the main loader module. It is a little special because it is treated like an AMD module even though it is actually just plain JavaScript. There is some extra magic in the build system specifically for this module ID.
 		'app/cocoach_base': {
 			// In addition to the loader (dojo/dojo) and the loader configuration file (app/run), we’re also including
@@ -58,21 +83,10 @@ var profile = {
 			// conditional dependencies in app/main (the other being app/Dialog) but we don’t want to have to make
 			// extra HTTP requests for such tiny files.
 			include: [
-				'dojo/dojo',
-				'dojo/require',
-				'dojo/domReady',
-
 				'dojo/store/JsonRest',
-
-				'dojo/_base/declare',
-				'dojo/_base/connect',
-				'dojo/_base/declare',
-
 				'dojox',
-
 				'dijit/Tree',
 				'dijit/tree/dndSource',
-
 				'dijit/Menu',
 				'dijit/MenuItem',
 				'dijit/Toolbar',
@@ -99,12 +113,12 @@ var profile = {
 
 	// Providing hints to the build system allows code to be conditionally removed on a more granular level than simple module dependencies can allow. This is especially useful for creating tiny mobile builds.  Keep in mind that dead code removal only happens in minifiers that support it! Currently, ShrinkSafe does not support dead code removal; Closure Compiler and UglifyJS do.
 	staticHasFeatures: {
-		'dojo-trace-api':0, // The trace & log APIs are used for debugging the loader, so we don’t need them in the build
-		'dojo-log-api':0,
-		'dojo-publish-privates':0, // This causes normally private loader data to be exposed for debugging, so we don’t need that either
-		'dojo-sync-loader':0, // We’re fully async, so get rid of the legacy loader
-		'dojo-xhr-factory':0, // dojo-xhr-factory relies on dojo-sync-loader
-		'dojo-test-sniff': 0 // We aren’t loading tests in production
+		'dojo-trace-api'        : 0, // The trace & log APIs are used for debugging the loader, so we don’t need them in the build
+		'dojo-log-api'          : 0,
+		'dojo-publish-privates' : 0, // This causes normally private loader data to be exposed for debugging, so we don’t need that either
+		'dojo-sync-loader'      : 0, // We’re fully async, so get rid of the legacy loader
+		'dojo-xhr-factory'      : 0, // dojo-xhr-factory relies on dojo-sync-loader
+		'dojo-test-sniff'       : 0 // We aren’t loading tests in production
 	},
 
 	// Resource tags are functions that provide hints to the compiler about a given file. The first argument is the filename of the file, and the second argument is the module ID for the file.
