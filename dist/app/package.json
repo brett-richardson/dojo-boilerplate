@@ -1,0 +1,20 @@
+{
+    "name"    : "Cocoach Base",
+    "version" : "0.1",
+    "main"    : "main",
+    "dependencies" : {
+        "dojo"  : "current",
+        "dijit" : "current",
+        "dojox" : "current",
+        "util"  : "current"
+    },
+    "description" : "Cocoach base Dojo package, whatever is used in both the document builder and KPI manager",
+    "licenses" : [ {
+        "type" : "AFLv2.1",
+        "url"  : "http://trac.dojotoolkit.org/browser/dojo/trunk/LICENSE#L43"
+    } ],
+    "bugs"      : "http://www.dabl.co.nz/contact",
+    "keywords"  : [ "JavaScript", "Dojo" ],
+    "homepage"  : "http://www.cocoach.com",
+    "dojoBuild" : "cocoach.profile.js"
+}

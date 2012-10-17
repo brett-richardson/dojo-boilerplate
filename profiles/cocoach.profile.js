@@ -80,6 +80,32 @@ var profile = {
 			boot: true,
 			customBase: true
 		},
+		'app/base': {
+			// In addition to the loader `dojo/dojo` and the loader configuration file `app/run`, we are also including
+			// the main application `app/main` and the `dojo/i18n` and `dojo/domReady` modules because, while they are
+			// all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
+			// tiny files.
+			include: [
+				// 'dojo/i18n',
+				'dojo/main',
+				'dojo/_base/declare',
+				'dojo/_base/lang',
+				'dojo/_base/connect',
+				'dojo/require',
+				'dojo/provide',
+				'dojo/domReady',
+				'dojo/Deferred',
+				'dojo/when',
+				'dojo/on',
+				'dojo/store/Observable',
+				'dojo/store/JsonRest'
+			],
+			// By default, the build system will try to include `dojo/main` in the built `dojo/dojo` layer, which adds
+			// a bunch of stuff we do not want or need. We want the initial script load to be as small and quick to
+			// load as possible, so we configure it as a custom, bootable base.
+			boot: true,
+			customBase: true
+		},
 		'app/cocoach_base': {
 			include: [
 				'dojox',
