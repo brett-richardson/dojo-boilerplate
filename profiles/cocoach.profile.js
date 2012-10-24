@@ -32,10 +32,10 @@ var profile = {
 	// Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe.
 	// Note that you will probably get some “errors” with CC; these are generally safe to ignore, and will be
 	// fixed in a later version of Dojo. This defaults to "" (no compression) if not provided.
-	optimize: '', // 'closure',
+	optimize: 'closure',
 
 	// We’re building layers, so we need to set the minifier to use for those, too. This defaults to "shrinksafe" if it is not provided.
-	layerOptimize: '', // 'closure',
+	layerOptimize: 'closure',
 
 	// Strips all calls to console functions within the code. You can also set this to "warn" to strip everything
 	// but console.error, and any other truthy value to strip everything but console.warn and console.error.
@@ -60,7 +60,7 @@ var profile = {
 			// all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
 			// tiny files.
 			include: [
-				// 'dojo/i18n',
+				'dojo/i18n',
 				'dojo/main',
 				'dojo/_base/declare',
 				'dojo/_base/lang',
@@ -86,7 +86,7 @@ var profile = {
 			// all conditional dependencies in `app/main`, we do not want to have to make extra HTTP requests for such
 			// tiny files.
 			include: [
-				// 'dojo/i18n',
+				'dojo/i18n',
 				'dojo/main',
 				'dojo/_base/declare',
 				'dojo/_base/lang',
@@ -122,21 +122,21 @@ var profile = {
 			],
 			boot: false,
 			customBase: false // true
-		},
-		'app/cocoach_document_builder': {
-			include: [
-				'dijit/tree/dndSource'
-			],
-			boot: false,
-			customBase: false // true
-		},
-		'app/cocoach_goal_manager': {
-			include: [
-				'dijit/tree/dndSource'
-			],
-			boot: false,
-			customBase: false // true
-		}
+		}//,
+//		'app/cocoach_document_builder': {
+//			include: [
+//				'../../../../../app/assets/javascripts/cocoach_dojo/widgets/DocumentBuilder'
+//			],
+//			boot: false,
+//			customBase: false // true
+//		},
+//		'app/cocoach_goal_manager': {
+//			include: [
+//				'../../../../../app/assets/javascripts/cocoach_dojo/widgets/GoalManager'
+//			],
+//			boot: false,
+//			customBase: false // true
+//		}
 	},
 
 	// Providing hints to the build system allows code to be conditionally removed on a more granular level than simple module dependencies can allow. This is especially useful for creating tiny mobile builds.  Keep in mind that dead code removal only happens in minifiers that support it! Currently, ShrinkSafe does not support dead code removal; Closure Compiler and UglifyJS do.
